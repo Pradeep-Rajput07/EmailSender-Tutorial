@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java & Backend Developer Application</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+        }
+
+        .email-container {
+            max-width: 650px;
+            height: auto;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .header {
+            background-color: rgb(128, 0, 0);
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        p {
+            line-height: 1.7;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .intro {
+            background-color: #e0f5ff;
+            padding: 15px;
+            border-left: 5px solid rgb(128, 0, 0);
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .intro p {
+            margin: 0;
+        }
+
+        .highlights {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .highlights ul {
+            padding-left: 20px;
+        }
+
+        .highlights li {
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #007f91;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: rgb(128, 0, 0);
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 30px;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #003f53;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: rgb(192, 192, 192);
+        }
+
+        .footer a {
+            color: rgb(0, 0, 255);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Application for Java Developer Positions</h1>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <p>Dear Hiring Manager,</p>
+            </div>
+
+            <p>
+                I hope this message finds you well. I am writing to express my enthusiasm for the <strong>Java</strong> and <strong>Backend Developer</strong> positions at your esteemed company. As a dedicated and passionate developer with hands-on experience in <strong>Java, Spring Boot, and backend development</strong>, I am confident that my skill set aligns perfectly with the roles you are seeking to fill.
+            </p>
+
+            <div class="highlights">
+                <p><strong>My key qualifications include:</strong></p>
+                <ul>
+                    <li>Expertise in <strong>Spring Boot</strong> for microservices architecture and RESTful APIs.</li>
+                    <li>Proficiency in integrating <strong>payment gateways</strong> and third-party APIs.</li>
+                    <li>Strong background in <strong>database design</strong> and management (MySQL, PostgreSQL).</li>
+                    <li>Experience with <strong>Maven, Git, Jira, Hibernate</strong>, and modern development tools.</li>
+                    <li>Competency in <strong>data structures</strong> like Linked Lists.</li>
+                </ul>
+            </div>
+
+            <p>
+                Attached is my resume for your review. I am eager to bring my experience and problem-solving abilities to your team and contribute to the success of your organization. I am excited about the opportunity to discuss how I can help achieve your company's goals.
+            </p>
+
+            <p>Thank you for considering my application. I look forward to the possibility of an interview.</p>
+
+            <p>
+                Sincerely,<br />
+                <strong>Pradeep Kumar</strong><br />
+                Java & Backend Developer<br />
+                <a href="mailto:pradeeprajjput707@gmail.com">pradeeprajjput707@gmail.com</a> | +91 7310603789<br>
+                LinkedIn: <a href="https://linkedin.com/in/pradeep-rajput07">linkedin.com/in/pradeep-rajput07</a>
+            </p>
+
+            <a href="mailto:pradeeprajjput707@gmail.com" class="cta-button">Contact Me</a>
+        </div>
+    </div>
+
+    <!-- Simulated AJAX content load -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                let note = document.createElement('p');
+                note.textContent = "P.S. I'm available for both in-office and remote positions.";
+                document.querySelector('.content').appendChild(note);
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>

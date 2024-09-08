@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Emails</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .content-container {
+            width: 400px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: popIn 0.8s forwards;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1;
+        }
+
+        .blurred {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 1.2s;
+            opacity: 0;
+        }
+
+        input[type="button"] {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgb(128, 0, 0), rgb(128, 0, 0));
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            width: 50%;
+            font-weight: bold;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.9s;
+            opacity: 0;
+        }
+
+        input[type="button"]:hover {
+            background: rgb(64, 0, 0);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 8px;
+            background: #3498db;
+            border-radius: 4px;
+            margin-top: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #000000;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1.5s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .Para {
+            font-size: large;
+            font-weight: bold;
+            color: black;
+        }
+
+        .paragraph {
+            font-size: large;
+            font-weight: bold;
+            color: rgb(128, 0, 0);
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div class="content-container" id="contentContainer">
+        <p1 class="Para">After clicking "Send Emails to All", please wait for a while. It may take some time to send emails.</p1>
+        <p2 class="paragraph">Thank You</p2>
+        <form id="emailForm">
+            <div id="progressContainer" style="display: none;">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="button-group">
+                <input type="button" value="Send Email to All" onclick="sendEmails()" />
+            </div>
+        </form>
+    </div>
+
+    <div id="loader" style="display:none;" class="loader"></div>
+
+    <script>
+        function sendEmails() {
+            document.getElementById("loader").style.display = "block";
+            document.getElementById("progressContainer").style.display = "block";
+            document.getElementById("progressBar").style.width = "0%";
+            document.getElementById("contentContainer").classList.add("blurred");
+
+            var progress = 0;
+            var progressInterval = setInterval(function () {
+                if (progress < 100) {
+                    progress += 10;
+                    document.getElementById("progressBar").style.width = progress + "%";
+                } else {
+                    clearInterval(progressInterval);
+                }
+            }, 300);
+
+            $.ajax({
+                url: '/emails/resumeSendToAll',
+                type: 'GET',
+                success: function (response) {
+                    clearInterval(progressInterval);
+                    document.getElementById("loader").style.display = "none";
+                    document.getElementById("progressContainer").style.display = "none";
+                    document.getElementById("contentContainer").classList.remove("blurred");
+
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Emails sent successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                },
+                error: function (xhr, status, error) {
+                    clearInterval(progressInterval);
+                    document.getElementById("loader").style.display = "none";
+                    document.getElementById("progressContainer").style.display = "none";
+                    document.getElementById("contentContainer").classList.remove("blurred");
+
+                    console.error('Error Status:', status);
+                    console.error('Error Details:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `Failed to send emails. Status: ${status}, Error: ${error}`,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
